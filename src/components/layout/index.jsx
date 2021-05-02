@@ -5,13 +5,11 @@ import { flexMixin } from "styles/_mixin";
 
 const containerStyle = css`
   ${flexMixin({ direction: "column" })}
-  min-height: 100vh;
 `;
 
 const mainStyle = css`
   flex: 1 1;
   padding-bottom: 10px;
-  margin-bottom: 50px;
   width: 100%;
 `;
 

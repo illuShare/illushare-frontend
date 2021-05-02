@@ -21,6 +21,17 @@ export const globalStyles = (
       * {
         box-sizing: border-box;
       }
+
+      button {
+        background-color: inherit;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+
+      li {
+        list-style: none;
+      }
     `}
   />
 );

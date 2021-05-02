@@ -10,7 +10,7 @@ const headerStyle = css`
   margin: 0 auto;
   height: 70px;
   width: 100%;
-  backgroun-color: ${Colors.white};
+  background-color: ${Colors.white};
 `;
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
     <header css={headerStyle}>
       <Link href="/">
         <a>
-          <Image src="/images/logo.jpeg" height={70} width={70} />
+          <Image src="/images/logo.png"  height={90} width={90} />
         </a>
       </Link>
     </header>

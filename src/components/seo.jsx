@@ -14,3 +14,5 @@ const SEO = ({ title, siteTitle, description }) => {
     </Head>
   );
 };
+
+export default SEO;
