@@ -1,5 +1,7 @@
 # IlluShare
 
+- nextJS, Emotion, Recoil, SWR
+
 ### How to initialize
 
 ```
@@ -9,8 +11,7 @@ yarn install
 ### Start Project
 
 ```
-
-yarn build //before start
+yarn build
 
 yarn dev
 ```
