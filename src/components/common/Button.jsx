@@ -48,11 +48,13 @@ const Button = React.forwardRef(
       fullSize = false,
       bgColor = "inherit",
       color = "white",
+      className = "",
     },
     ref
   ) => {
     return (
       <button
+        className={className}
         css={buttonStyles({ size, fullSize, bgColor, color })}
         type={type}
         onClick={handleOnClick}
@@ -72,6 +74,7 @@ Button.propTypes = {
   fullSize: PropTypes.bool,
   bgColor: PropTypes.string,
   color: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Button;
