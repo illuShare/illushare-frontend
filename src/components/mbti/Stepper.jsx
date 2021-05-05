@@ -4,8 +4,8 @@ import { flexMixin } from "styles/_mixin";
 import { Colors } from "styles/_variables";
 
 const stepperStyle = css`
-  margin: auto auto 1rem auto;
-  width: 100%;
+  margin: 1.4rem auto 1.4rem auto;
+  width: 90%;
   height: 2rem;
   position: relative;
 `;

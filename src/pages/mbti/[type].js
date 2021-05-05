@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import mbti from "constants/type";
 import { containerMixin } from "styles/_mixin";
 import Stepper from "components/mbti/Stepper";
+import Question from "components/mbti/Question";
 
 const mainContainer = css``;
 
@@ -38,15 +39,19 @@ const Mbti = () => {
           <Stepper step={1} />
           <div css={mainContainer}>
             <Slider {...sliderSettings}>
-              <div>
-                <h3>1</h3>
-              </div>
-              <div>
-                <h3>2</h3>
-              </div>
-              <div>
-                <h3>3</h3>
-              </div>
+              <Question
+                question="강아지를 입양하기로 한 상황 당신은?"
+                answers={[
+                  {
+                    answer: "입양하기 전에 물건을 산다",
+                    type: "j",
+                  },
+                  {
+                    answer: "살면서 한개씩 구매한다",
+                    type: "p",
+                  },
+                ]}
+              />
             </Slider>
           </div>
         </div>

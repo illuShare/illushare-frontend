@@ -29,8 +29,14 @@ export const globalStyles = (
         cursor: pointer;
       }
 
+      ul,
       li {
         list-style: none;
+      }
+
+      ul {
+        padding: 0;
+        margin: 0;
       }
     `}
   />
