@@ -3,15 +3,14 @@ import { css } from "@emotion/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import {useRecoilState} from 'recoil';
-import { deviceState } from 'states/device';
+import { useRecoilState } from "recoil";
+import { deviceState } from "states/device";
 import Button from "components/common/Button";
 import ButtonGroup from "components/common/ButtonGroup";
 import SnsButton from "components/common/SnsButton";
 import { containerMixin, flexMixin } from "styles/_mixin";
 import { Colors } from "styles/_variables";
 import Stat from "components/common/Stat";
-
 
 const mainCoverContainerStyle = css`
   ${flexMixin({ direction: "row" })}
@@ -21,7 +20,7 @@ const mainCoverContainerStyle = css`
   position: relative;
 `;
 
-const mainCoverStyle = css `
+const mainCoverStyle = css`
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -52,7 +51,11 @@ const bannerStyle = css`
 `;
 
 const titleWrapperStyle = css`
-  ${flexMixin({ direction: "column", justifyContent: "center", alignItems: "center" })}
+  ${flexMixin({
+    direction: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  })}
   height: 100%;
   width: 100%;
   position: absolute;
@@ -66,13 +69,13 @@ const subTitleStyle = css`
 `;
 
 const mainTitleStyle = css`
-  font-size: 3.0rem;
+  font-size: 3rem;
   top: 50px;
   word-break: keep-all;
 `;
 
 const mainCoverBgStyle = css`
-  background-image: url('images/dog.png');
+  background-image: url("images/dog.png");
   background-repeat: no-repeat;
   background-size: contain;
   width: 100%;
@@ -86,13 +89,29 @@ const mainImageStyle = css`
 `;
 
 const buttonContainer = css`
-  ${flexMixin({ direction: "row", justifyContent: "center", alignItems: "center" })}
+  ${flexMixin({
+    direction: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  })}
   height: 80px;
   background-color: #e2ddff;
+
+  & a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const snsContainer = css`
-  ${flexMixin({ direction: "row", justifyContent: "center", alignItems: "center" })}
+  ${flexMixin({
+    direction: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  })}
   min-height: 80px;
   padding-bottom: 1rem;
   background-color: #e2ddff;
@@ -110,7 +129,7 @@ const snsContentWrapper = css`
 
     &::after {
       position: absolute;
-      content: '';
+      content: "";
       width: 1px;
       height: 100%;
       background-color: black;
@@ -120,7 +139,7 @@ const snsContentWrapper = css`
 
   & .button-group {
     display: flex;
-    align-items:center;
+    align-items: center;
     margin-left: 1.5rem;
 
     & button {
@@ -144,7 +163,7 @@ const infoArea = css`
 
     &::after {
       position: absolute;
-      content: '';
+      content: "";
       width: 100%;
       height: 1px;
       top: 50%;
@@ -155,7 +174,7 @@ const infoArea = css`
 
     &::before {
       position: absolute;
-      content: '';
+      content: "";
       width: 100%;
       height: 1px;
       top: 50%;
@@ -173,8 +192,6 @@ const StatsContainer = css`
   width: 100%;
 `;
 
-
-
 export default function Home() {
   const [device, setDeviceState] = useRecoilState(deviceState);
   const handleResize = useCallback(() => {
@@ -183,7 +200,7 @@ export default function Home() {
     if (innerWidth <= 768) {
       setDeviceState("mobile");
     } else {
-      setDeviceState('web');
+      setDeviceState("web");
     }
   }, []);
 
@@ -205,33 +222,27 @@ export default function Home() {
           <div css={mainCoverContainerStyle}>
             <div css={mainCoverStyle}>
               <div css={colStyle}>
-                {
-                  device === 'mobile' && (
-                    <div css={mainCoverBgStyle}/>
-                  )
-                }
+                {device === "mobile" && <div css={mainCoverBgStyle} />}
                 <div css={titleWrapperStyle}>
-                  <h3 css={subTitleStyle}>나는 어떤 강아지의 성격과 비슷할까?</h3>
-                  <h1 css={mainTitleStyle}>'강아지 MBTI'</h1>
+                  <h3 css={subTitleStyle}>
+                    나는 어떤 강아지의 성격과 비슷할까?
+                  </h3>
+                  <h1 css={mainTitleStyle}>&apos;강아지 MBTI&apos;</h1>
                 </div>
-     
               </div>
-              {
-                device === 'web'&& (
-                  <div css={colStyle}>
-                    <div css={mainImageStyle}>
-                      <Image layout="fill" src="/images/dog.png"/>
-                    </div>
+              {device === "web" && (
+                <div css={colStyle}>
+                  <div css={mainImageStyle}>
+                    <Image layout="fill" src="/images/dog.png" />
                   </div>
-                )
-              }
-
+                </div>
+              )}
             </div>
           </div>
           <div css={buttonContainer}>
-            <Button type="button" bgColor={'#a3bfff'}>
+            <Button type="button" bgColor="#a3bfff">
               <Link href="/mbti/dog">
-                <a>테스트 시작</a>
+                <a href="/">테스트 시작</a>
               </Link>
             </Button>
           </div>
@@ -239,9 +250,9 @@ export default function Home() {
             <div css={snsContentWrapper}>
               <p>공유하기</p>
               <ButtonGroup className="button-group">
-                <SnsButton type={'naver'} title="강아지 MBTI | 일루쉐어"/>
-                <SnsButton type={'facebook'}/>
-                <SnsButton type={'twitter'}/>
+                <SnsButton type="naver" title="강아지 MBTI | 일루쉐어" />
+                <SnsButton type="facebook" />
+                <SnsButton type="twitter" />
               </ButtonGroup>
             </div>
           </div>
@@ -254,11 +265,11 @@ export default function Home() {
         <div css={infoArea}>
           <p className="area-title">많이 나온 유형</p>
           <ul css={StatsContainer}>
-            <Stat/>
-            <Stat/>
-            <Stat/>
+            <Stat />
+            <Stat />
+            <Stat />
           </ul>
-          <Button type="button" bgColor={'#a3bfff'}>
+          <Button type="button" bgColor="#a3bfff">
             모든 유형 보기
           </Button>
         </div>
