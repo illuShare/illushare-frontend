@@ -35,3 +35,5 @@ export const globalStyles = (
     `}
   />
 );
+
+export default null;

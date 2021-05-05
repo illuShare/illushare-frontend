@@ -1,8 +1,9 @@
-//color
+// color
 export const Colors = {
   white: "#fff",
   blue: "#a3bfff",
   purple: "#e2ddff",
+  mattpurple: "#8c7ae6",
   "gray-100": "#e6e6e6",
   "gray-200": "#c8cbdc",
   "gray-300": "#999cb2",
@@ -14,3 +15,5 @@ export const Colors = {
   "gray-900": "#1f2133",
   "dark-blue": "#1b2f54",
 };
+
+export default null;
