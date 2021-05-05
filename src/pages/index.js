@@ -265,9 +265,9 @@ export default function Home() {
         <div css={infoArea}>
           <p className="area-title">많이 나온 유형</p>
           <ul css={StatsContainer}>
-            <Stat />
-            <Stat />
-            <Stat />
+            <Stat rank={1} type="INTJ" name="용감한 치와와" />
+            <Stat rank={2} type="INTJ" name="용감한 치와와" />
+            <Stat rank={3} type="INTJ" name="용감한 치와와" />
           </ul>
           <Button type="button" bgColor="#a3bfff">
             모든 유형 보기

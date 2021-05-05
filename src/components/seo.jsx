@@ -1,4 +1,5 @@
 import Head from "next/head";
+import PropTypes from "prop-types";
 
 const SEO = ({ title, siteTitle, description }) => {
   return (
@@ -13,6 +14,12 @@ const SEO = ({ title, siteTitle, description }) => {
       <meta property="twitter:description" content={description} />
     </Head>
   );
+};
+
+SEO.propTypes = {
+  title: PropTypes.string.isRequired,
+  siteTitle: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default SEO;

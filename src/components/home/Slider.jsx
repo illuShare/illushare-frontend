@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ImArrowRight2, ImArrowLeft2 } from "react-icons/im";
 import { css } from "@emotion/react";
+import PropTypes from "prop-types";
 import ItemList from "components/home/ItemList";
 import { Colors } from "styles/_variables";
 import { flexMixin } from "styles/_mixin";
@@ -15,7 +16,7 @@ const asideStyle = css`
   width: 150px;
   padding: 5px;
   background-color: ${Colors["dark-blue"]};
-  color: ${Colors["white"]};
+  color: ${Colors.white};
   z-index: 1;
 
   & p {
@@ -87,6 +88,17 @@ const Slider = ({ children, title, type, total, sliderRef }) => {
       </ItemList>
     </section>
   );
+};
+
+Slider.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
+  sliderRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLUListElement) }),
+  ]),
 };
 
 export default Slider;

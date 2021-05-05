@@ -1,4 +1,4 @@
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot } from "recoil";
 import Layout from "components/layout";
 import { globalStyles } from "../styles";
 

@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import PropTypes from "prop-types";
 import { flexMixin } from "styles/_mixin";
 import { Colors } from "styles/_variables";
 
@@ -61,6 +62,11 @@ const Item = ({ title, description }) => {
       </div>
     </div>
   );
+};
+
+Item.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default Item;

@@ -1,13 +1,12 @@
-import React from 'react';
-import {css} from '@emotion/react';
+import React from "react";
+import { css } from "@emotion/react";
+import PropTypes from "prop-types";
 
-
-const buttonStyles = ({bgColor,color,size = "md",fullSize = false}) => {
-
-  if(fullSize) {
+const buttonStyles = ({ bgColor, color, size = "md", fullSize = false }) => {
+  if (fullSize) {
     return css`
-      width:100%;
-      height:100%;
+      width: 100%;
+      height: 100%;
       color: ${color};
       background-color: ${bgColor};
       font-weight: bold;
@@ -15,17 +14,20 @@ const buttonStyles = ({bgColor,color,size = "md",fullSize = false}) => {
   }
 
   return css`
-    ${size=== "sm"&& `
+    ${size === "sm" &&
+    `
         height: 30px;
         width: 80%;
         font-size: 0.75rem;
     `}
-    ${size=== "md"&& `
+    ${size === "md" &&
+    `
         height: 50px;
         width: 80%;
         font-size: 1.15rem;
     `}
-    ${size=== "lg"&& `
+    ${size === "lg" &&
+    `
         height: 70px;
         width: 80%;
         font-size: 1.3rem;
@@ -34,10 +36,42 @@ const buttonStyles = ({bgColor,color,size = "md",fullSize = false}) => {
     background-color: ${bgColor};
     font-weight: bold;
   `;
-}
+};
 
-const Button = React.forwardRef(({type,children , handleOnClick, size = "md", fullSize = false, bgColor = 'inherit', color = "white"},ref) => {
-  return <button css={buttonStyles({size, fullSize, bgColor, color})} type={type} onClick={handleOnClick} ref={ref}>{children}</button>
-});
+const Button = React.forwardRef(
+  (
+    {
+      children,
+      handleOnClick,
+      type = "button",
+      size = "md",
+      fullSize = false,
+      bgColor = "inherit",
+      color = "white",
+    },
+    ref
+  ) => {
+    return (
+      <button
+        css={buttonStyles({ size, fullSize, bgColor, color })}
+        type={type}
+        onClick={handleOnClick}
+        ref={ref}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.propTypes = {
+  type: PropTypes.string,
+  children: PropTypes.node,
+  handleOnClick: PropTypes.func,
+  size: PropTypes.string,
+  fullSize: PropTypes.bool,
+  bgColor: PropTypes.string,
+  color: PropTypes.string,
+};
 
 export default Button;

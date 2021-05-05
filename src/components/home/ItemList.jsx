@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import PropTypes from "prop-types";
 
 const listWrapperStyle = css`
   display: flex;
@@ -24,6 +25,16 @@ const ItemList = ({ children, sliderRef, page, type }) => {
       </ul>
     </div>
   );
+};
+
+ItemList.propTypes = {
+  children: PropTypes.node.isRequired,
+  page: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  sliderRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLUListElement) }),
+  ]),
 };
 
 export default ItemList;

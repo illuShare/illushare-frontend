@@ -1,4 +1,5 @@
-import {css} from '@emotion/react';
+import { css } from "@emotion/react";
+import PropTypes from "prop-types";
 
 const StatContainer = css`
   width: 20%;
@@ -14,13 +15,13 @@ const StatInfo = css`
   height: 100%;
   border-radius: 10%;
   background-color: #505050;
- 
+
   & > p {
     margin: 0 0 0.5rem 0;
     padding: 8px 0;
   }
 
-  & .lank {
+  & .rank {
     margin-top: 0.8rem;
     padding: 0 0.2rem;
     width: 2.5rem;
@@ -45,18 +46,22 @@ const StatInfo = css`
   }
 `;
 
-const Stat = () => {
+const Stat = ({ rank, type, name }) => {
   return (
-  <li css={StatContainer}>
-    <div css={StatInfo}>
-      <p className="lank">n위</p>
-      <p className="type">INTJ</p>
-      <p className="name">
-        용감한 치와와
-      </p>
-    </div>
-  </li>
+    <li css={StatContainer}>
+      <div css={StatInfo}>
+        <p className="rank">{`${rank}위`}</p>
+        <p className="type">{type}</p>
+        <p className="name">{name}</p>
+      </div>
+    </li>
   );
-}
+};
+
+Stat.propTypes = {
+  rank: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default Stat;
