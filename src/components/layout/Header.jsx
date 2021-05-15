@@ -17,8 +17,8 @@ const Header = () => {
   return (
     <header css={headerStyle}>
       <Link href="/">
-        <a>
-          <Image src="/images/logo.png"  height={90} width={90} />
+        <a href="/">
+          <Image src="/images/logo.png" height={90} width={90} />
         </a>
       </Link>
     </header>

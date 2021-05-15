@@ -50,7 +50,7 @@ const Button = React.forwardRef(
       color = "white",
       className = "",
     },
-    ref
+    ref,
   ) => {
     return (
       <button
@@ -63,7 +63,7 @@ const Button = React.forwardRef(
         {children}
       </button>
     );
-  }
+  },
 );
 
 Button.propTypes = {

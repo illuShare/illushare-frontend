@@ -8,6 +8,15 @@ const stepperStyle = css`
   width: 90%;
   height: 2rem;
   position: relative;
+
+  & > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+    width: 100%;
+    font-weight: bold;
+  }
 `;
 const lineStyle = css`
   margin: 1rem 0;
@@ -20,30 +29,33 @@ const lineStyle = css`
   background-color: ${Colors.purple};
   z-index: 1;
 `;
-const circleStyle = css`
-  ${flexMixin({
-    direction: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  })}
-  height: 2rem;
-  width: 2rem;
-  font-weight: 600;
-  font-size: 1.2rem;
-  position: absolute;
-  color: white;
-  border-radius: 50%;
-  background-color: ${Colors.mattpurple};
-  z-index: 2;
-`;
 
-const Stepper = ({ step = 1 }) => {
+const getInnerLineStyle = (step, end) => {
+  const innerWidth = (step / end) * 100;
+
+  return css`
+    ${flexMixin({
+      direction: "row",
+      alignItems: "center",
+      justifyContent: "center",
+    })}
+    height: 100%;
+    width: ${innerWidth}%;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: white;
+    background-color: ${Colors.mattpurple};
+    z-index: 2;
+  `;
+};
+
+const Stepper = ({ step = 1, end = 1 }) => {
   return (
     <div css={stepperStyle}>
-      <div css={lineStyle} />
-      <div css={circleStyle}>
-        <span>{step}</span>
+      <div css={lineStyle}>
+        <div css={getInnerLineStyle(step, end)} />
       </div>
+      <p>{`${step} / ${end}`}</p>
     </div>
   );
 };
