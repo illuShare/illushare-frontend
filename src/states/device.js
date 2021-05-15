@@ -1,6 +1,8 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
-export const deviceState = atom({
-  key: 'deviceState',
-  default: 'web'
+const deviceState = atom({
+  key: "deviceState",
+  default: "web",
 });
+
+export default deviceState;

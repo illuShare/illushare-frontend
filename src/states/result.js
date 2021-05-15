@@ -1,11 +1,11 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
 export const lankState = atom({
-  key: 'lankState',
-  default: []
+  key: "lankState",
+  default: [],
 });
 
 export const resultState = atom({
-  key: 'resultState',
-  default: {}
+  key: "resultState",
+  default: {},
 });
