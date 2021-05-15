@@ -3,8 +3,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import Slider from "react-slick";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import pageState from "states/page";
+import { resultState } from "states/result";
 import mbti from "constants/type";
 import mbtiQuestions from "constants/questions";
 import Stepper from "components/mbti/Stepper";
@@ -26,6 +27,7 @@ const sliderContainer = css`
 const Mbti = () => {
   const router = useRouter();
   const setPageState = useSetRecoilState(pageState);
+  const [result, setResultState] = useRecoilState(resultState);
   const [step, setStep] = useState(1);
   const [userAnswer, setUserAnswer] = useState([]);
 
@@ -45,12 +47,17 @@ const Mbti = () => {
       setUserAnswer((prev) => [...prev, answer]);
       sliderRef.current.slickNext();
     } else {
-      setUserAnswer((prev) => [...prev, answer]);
+      setResultState([...userAnswer, answer]);
+      router.push({
+        pathname: "/result",
+      });
     }
     // 데이터 처리
   };
 
   useEffect(() => {
+    if (result.length) setResultState([]);
+
     setPageState("mbti");
   }, []);
 
@@ -86,7 +93,6 @@ const Mbti = () => {
           </div>
         </div>
       </section>
-      <section />
     </div>
   );
 };
