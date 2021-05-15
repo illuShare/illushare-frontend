@@ -1,22 +1,58 @@
+import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import Slider from "react-slick";
+import { useSetRecoilState } from "recoil";
+import pageState from "states/page";
 import mbti from "constants/type";
-import { containerMixin } from "styles/_mixin";
+import mbtiQuestions from "constants/questions";
 import Stepper from "components/mbti/Stepper";
 import Question from "components/mbti/Question";
+import { containerMixin } from "styles/_mixin";
 
-const mainContainer = css``;
+const mainContainer = css`
+  padding-top: 5rem;
+`;
+
+const sliderContainer = css`
+  padding-top: 1.5rem;
+
+  & .slick-arrow {
+    display: none !important;
+  }
+`;
 
 const Mbti = () => {
   const router = useRouter();
+  const setPageState = useSetRecoilState(pageState);
+  const [step, setStep] = useState(1);
+  const [userAnswer, setUserAnswer] = useState([]);
+
+  const sliderRef = useRef();
+
   const { type } = router.query;
 
   const sliderSettings = {
     dots: false,
     swipe: false,
+    infinite: false,
   };
+
+  const handleNextStep = (answer) => () => {
+    if (sliderRef.current && step < mbtiQuestions[type]?.length) {
+      setStep((prev) => prev + 1);
+      setUserAnswer((prev) => [...prev, answer]);
+      sliderRef.current.slickNext();
+    } else {
+      setUserAnswer((prev) => [...prev, answer]);
+    }
+    // 데이터 처리
+  };
+
+  useEffect(() => {
+    setPageState("mbti");
+  }, []);
 
   return (
     <div>
@@ -34,24 +70,18 @@ const Mbti = () => {
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
       </Head>
-      <section>
+      <section css={mainContainer}>
         <div css={containerMixin()}>
-          <Stepper step={1} />
-          <div css={mainContainer}>
-            <Slider {...sliderSettings}>
-              <Question
-                question="강아지를 입양하기로 한 상황 당신은?"
-                answers={[
-                  {
-                    answer: "입양하기 전에 물건을 산다",
-                    type: "j",
-                  },
-                  {
-                    answer: "살면서 한개씩 구매한다",
-                    type: "p",
-                  },
-                ]}
-              />
+          <Stepper step={step} end={mbtiQuestions[type]?.length} />
+          <div css={sliderContainer}>
+            <Slider ref={sliderRef} {...sliderSettings} slickNext>
+              {mbtiQuestions[type]?.map(({ question, answers }) => (
+                <Question
+                  question={question}
+                  answers={answers}
+                  handleNextStep={handleNextStep}
+                />
+              ))}
             </Slider>
           </div>
         </div>

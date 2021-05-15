@@ -3,8 +3,9 @@ import { css } from "@emotion/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { deviceState } from "states/device";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import deviceState from "states/device";
+import pageState from "states/page";
 import Button from "components/common/Button";
 import ButtonGroup from "components/common/ButtonGroup";
 import SnsButton from "components/common/SnsButton";
@@ -194,6 +195,8 @@ const StatsContainer = css`
 
 export default function Home() {
   const [device, setDeviceState] = useRecoilState(deviceState);
+  const setPageState = useSetRecoilState(pageState);
+
   const handleResize = useCallback(() => {
     const { innerWidth } = window;
 
@@ -210,6 +213,10 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    setPageState("home");
   }, []);
 
   return (
