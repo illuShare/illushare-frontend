@@ -260,6 +260,7 @@ export default function Home() {
                 <SnsButton type="naver" title="강아지 MBTI | 일루쉐어" />
                 <SnsButton type="facebook" />
                 <SnsButton type="twitter" />
+                <SnsButton type="share" />
               </ButtonGroup>
             </div>
           </div>

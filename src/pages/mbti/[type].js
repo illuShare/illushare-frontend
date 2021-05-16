@@ -41,15 +41,27 @@ const Mbti = () => {
     infinite: false,
   };
 
-  const handleNextStep = (answer) => () => {
+  const handleNextStep = ({ type: answerType }) => async () => {
     if (sliderRef.current && step < mbtiQuestions[type]?.length) {
       setStep((prev) => prev + 1);
-      setUserAnswer((prev) => [...prev, answer]);
+      setUserAnswer((prev) => [...prev, answerType]);
       sliderRef.current.slickNext();
     } else {
-      setResultState([...userAnswer, answer]);
+      /* 
+        try {
+          const data = await mutate('/api/result', sendResult([...answer,answerType])  ,false) 
+          setResultState([...userAnswer, answerType]);
+          router.push({
+            pathname: "/result",
+          });
+        } catch(e) {
+          console.log(error);
+        }
+      */
+
+      setResultState([...userAnswer, answerType]);
       router.push({
-        pathname: "/result",
+        pathname: "/result/pZoIz9WqZFw98w",
       });
     }
     // 데이터 처리
@@ -84,6 +96,7 @@ const Mbti = () => {
             <Slider ref={sliderRef} {...sliderSettings} slickNext>
               {mbtiQuestions[type]?.map(({ question, answers }) => (
                 <Question
+                  key={question}
                   question={question}
                   answers={answers}
                   handleNextStep={handleNextStep}
