@@ -24,7 +24,7 @@ const sliderContainer = css`
   }
 `;
 
-const Mbti = () => {
+const Mbti = ({ questions }) => {
   const router = useRouter();
   const setPageState = useSetRecoilState(pageState);
   const [result, setResultState] = useRecoilState(resultState);
@@ -47,18 +47,6 @@ const Mbti = () => {
       setUserAnswer((prev) => [...prev, answerType]);
       sliderRef.current.slickNext();
     } else {
-      /* 
-        try {
-          const data = await mutate('/api/result', sendResult([...answer,answerType])  ,false) 
-          setResultState([...userAnswer, answerType]);
-          router.push({
-            pathname: "/result",
-          });
-        } catch(e) {
-          console.log(error);
-        }
-      */
-
       setResultState([...userAnswer, answerType]);
       router.push({
         pathname: "/result/pZoIz9WqZFw98w",
@@ -95,9 +83,9 @@ const Mbti = () => {
           <div css={sliderContainer}>
             <Slider ref={sliderRef} {...sliderSettings} slickNext>
               <Question
-                key={mbtiQuestions[type][step - 1]?.question}
-                question={mbtiQuestions[type][step - 1]?.question}
-                answers={mbtiQuestions[type][step - 1]?.answers}
+                key={questions[step - 1]?.question}
+                question={questions[step - 1]?.question}
+                answers={questions[step - 1]?.answers}
                 handleNextStep={handleNextStep}
               />
             </Slider>
@@ -107,5 +95,19 @@ const Mbti = () => {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const paths = Object.keys(mbti).map((type) => ({
+    params: { type },
+  }));
+
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const { type } = params;
+
+  return { props: { questions: mbtiQuestions[type] } };
+}
 
 export default Mbti;
