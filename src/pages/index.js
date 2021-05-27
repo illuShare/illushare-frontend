@@ -17,7 +17,7 @@ const mainCoverContainerStyle = css`
   ${flexMixin({ direction: "row" })}
   padding: 1.8rem;
   height: 400px;
-  background-color: ${Colors.purple};
+  background-color: ${Colors.yellow};
   position: relative;
 `;
 
@@ -96,8 +96,7 @@ const buttonContainer = css`
     alignItems: "center",
   })}
   height: 80px;
-  background-color: #e2ddff;
-
+  background-color: ${Colors.yellow};
   & a {
     display: flex;
     align-items: center;
@@ -115,7 +114,7 @@ const snsContainer = css`
   })}
   min-height: 80px;
   padding-bottom: 1rem;
-  background-color: #e2ddff;
+  background-color: ${Colors.yellow};
 `;
 
 const snsContentWrapper = css`

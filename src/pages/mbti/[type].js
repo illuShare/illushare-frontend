@@ -94,14 +94,12 @@ const Mbti = () => {
           <Stepper step={step} end={mbtiQuestions[type]?.length} />
           <div css={sliderContainer}>
             <Slider ref={sliderRef} {...sliderSettings} slickNext>
-              {mbtiQuestions[type]?.map(({ question, answers }) => (
-                <Question
-                  key={question}
-                  question={question}
-                  answers={answers}
-                  handleNextStep={handleNextStep}
-                />
-              ))}
+              <Question
+                key={mbtiQuestions[type][step - 1]?.question}
+                question={mbtiQuestions[type][step - 1]?.question}
+                answers={mbtiQuestions[type][step - 1]?.answers}
+                handleNextStep={handleNextStep}
+              />
             </Slider>
           </div>
         </div>

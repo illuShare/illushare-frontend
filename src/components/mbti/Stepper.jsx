@@ -26,7 +26,7 @@ const lineStyle = css`
   left: 0;
   top: 0;
   border-radius: 2px;
-  background-color: ${Colors.purple};
+  background-color: ${Colors["gray-100"]};
   z-index: 1;
 `;
 
@@ -44,7 +44,7 @@ const getInnerLineStyle = (step, end) => {
     font-weight: 600;
     font-size: 1.2rem;
     color: white;
-    background-color: ${Colors.mattpurple};
+    background-color: ${Colors.yellow};
     z-index: 2;
   `;
 };

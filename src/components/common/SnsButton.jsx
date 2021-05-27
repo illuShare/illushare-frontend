@@ -42,8 +42,6 @@ const SnsButton = ({ type, title = "" }) => {
     }
   }, []);
 
-  console.log(router);
-
   return (
     <>
       <button type="button" css={SnsButtonStyle} onClick={() => ShareSNS(type)}>

@@ -1,32 +1,35 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { css } from "@emotion/react";
-import useSWR from "swr";
-import { getMBTIResult } from "apis/mbti";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import pageState from "states/page";
-import { containerMixin, flexMixin } from "styles/_mixin";
 import ButtonGroup from "components/common/ButtonGroup";
 import SnsButton from "components/common/SnsButton";
 import { Colors } from "styles/_variables";
-
-const mainContainer = css`
-  padding-top: 2.5rem;
-`;
+import { containerMixin, flexMixin } from "styles/_mixin";
 
 const contentContainer = css`
+  ${containerMixin()};
+  padding: 2.5rem 1.5rem 1rem 1.5rem;
+  background-color: ${Colors.yellow};
+`;
+
+const content = css`
   ${flexMixin({
     direction: "column",
     alignItems: "center",
     justifyContent: "center",
   })}
+  padding-top: 2rem;
   margin-bottom: 1rem;
+  border: 0.35rem solid rgba(0, 0, 0, 0.85);
+  border-radius: 1rem;
+  background-color: ${Colors.white};
 
   & > h1,
   & > h2 {
-    margin-top: 0.5rem;
+    margin-top: 0;
     letter-spacing: 0.1rem;
   }
 
@@ -81,16 +84,19 @@ const linkContainer = css`
     alignItems: "center",
     justifyContent: "center",
   })}
-  text-decoration-line: underline;
   color: rgb(79, 79, 79);
+
+  & > a {
+    padding: 1rem 2.5rem 1rem 2.5rem;
+    font-weight: 800;
+    background-color: inherit;
+    border: 0.15rem solid black;
+    border-radius: 1rem;
+  }
 `;
 
 const Result = () => {
-  const router = useRouter();
-  const { id } = router.query;
   const setPageState = useSetRecoilState(pageState);
-
-  // const { data } = useSWR("/api/result", getMBTIResult(id));
 
   useEffect(() => {
     setPageState("result");
@@ -98,9 +104,9 @@ const Result = () => {
 
   return (
     <div>
-      <section css={mainContainer}>
-        <div css={containerMixin()}>
-          <div css={contentContainer}>
+      <section>
+        <div css={contentContainer}>
+          <div css={content}>
             <h1>INTP</h1>
             <h2>용감한 치와와</h2>
             <figure css={figureStyle}>
