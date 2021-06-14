@@ -96,15 +96,7 @@ const Mbti = ({ questions }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const paths = Object.keys(mbti).map((type) => ({
-    params: { type },
-  }));
-
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const { type } = params;
 
   return { props: { questions: mbtiQuestions[type] } };
