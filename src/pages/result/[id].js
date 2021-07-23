@@ -2,12 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import pageState from "states/page";
 import ButtonGroup from "components/common/ButtonGroup";
 import SnsButton from "components/common/SnsButton";
 import { Colors } from "styles/_variables";
 import { containerMixin, flexMixin } from "styles/_mixin";
+import { resultState } from "states/result";
+import { mbti } from "constants/result";
 
 const contentContainer = css`
   ${containerMixin()};
@@ -96,6 +98,7 @@ const linkContainer = css`
 `;
 
 const Result = () => {
+  const result = useRecoilValue(resultState);
   const setPageState = useSetRecoilState(pageState);
 
   useEffect(() => {
@@ -107,14 +110,14 @@ const Result = () => {
       <section>
         <div css={contentContainer}>
           <div css={content}>
-            <h1>INTP</h1>
-            <h2>용감한 치와와</h2>
+            <h1>{result}</h1>
+            <h2>{mbti[result].title}</h2>
             <figure css={figureStyle}>
               <Image
                 layout="intrinsic"
                 height={350}
                 width={350}
-                src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=332&q=80 332w"
+                src={mbti[result].img}
               />
             </figure>
             <p css={summary}>

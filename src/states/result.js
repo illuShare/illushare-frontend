@@ -7,5 +7,5 @@ export const lankState = atom({
 
 export const resultState = atom({
   key: "resultState",
-  default: {},
+  default: "",
 });
