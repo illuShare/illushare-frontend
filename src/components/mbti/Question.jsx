@@ -66,7 +66,7 @@ const Question = ({ question, answers, handleNextStep }) => {
         <p className="question__text">{question}</p>
       </div>
       <ul className="answers">
-        {answers.map((item, idx) => (
+        {answers?.map((item, idx) => (
           <li key={`answer_${item.answer}`} className="answer">
             <Button
               className="answer__button"

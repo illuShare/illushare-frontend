@@ -9,9 +9,9 @@ import pageState from "states/page";
 import Button from "components/common/Button";
 import ButtonGroup from "components/common/ButtonGroup";
 import SnsButton from "components/common/SnsButton";
+import Stat from "components/common/Stat";
 import { containerMixin, flexMixin } from "styles/_mixin";
 import { Colors } from "styles/_variables";
-import Stat from "components/common/Stat";
 
 const mainCoverContainerStyle = css`
   ${flexMixin({ direction: "row" })}

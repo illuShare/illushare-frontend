@@ -6,10 +6,11 @@ import Slider from "react-slick";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import pageState from "states/page";
 import { resultState } from "states/result";
-import mbti from "constants/type";
+import { convertedName } from "constants/type";
 import mbtiQuestions from "constants/questions";
 import Stepper from "components/mbti/Stepper";
 import Question from "components/mbti/Question";
+import { filterTypes, getMbtiResult } from "libs/utils";
 import { containerMixin } from "styles/_mixin";
 
 const mainContainer = css`
@@ -28,8 +29,13 @@ const Mbti = ({ questions }) => {
   const router = useRouter();
   const setPageState = useSetRecoilState(pageState);
   const [result, setResultState] = useRecoilState(resultState);
-  const [step, setStep] = useState(1);
-  const [userAnswer, setUserAnswer] = useState([]);
+  const [step, setStep] = useState(0);
+  const [userAnswer, setUserAnswer] = useState([
+    { j: 0, p: 0 },
+    { s: 0, n: 0 },
+    { t: 0, f: 0 },
+    { e: 0, i: 0 },
+  ]);
 
   const sliderRef = useRef();
 
@@ -42,29 +48,34 @@ const Mbti = ({ questions }) => {
   };
 
   const handleNextStep = ({ type: answerType }) => async () => {
-    if (sliderRef.current && step < mbtiQuestions[type]?.length) {
+    if (sliderRef.current && step < mbtiQuestions[type]?.length - 1) {
+      const answer = [...userAnswer];
+      answer[Math.floor(step / 3)] = {
+        ...answer[Math.floor(step / 3)],
+        [answerType]: userAnswer[Math.floor(step / 3)][answerType] + 1,
+      };
+
+      setUserAnswer(answer);
       setStep((prev) => prev + 1);
-      setUserAnswer((prev) => [...prev, answerType]);
       sliderRef.current.slickNext();
     } else {
-      setResultState([...userAnswer, answerType]);
+      const mbtiResult = getMbtiResult(filterTypes(userAnswer)).toUpperCase();
+      setResultState(mbtiResult);
       router.push({
-        pathname: "/result/pZoIz9WqZFw98w",
+        pathname: `/result/${mbtiResult}`,
       });
     }
-    // 데이터 처리
   };
 
   useEffect(() => {
     if (result.length) setResultState([]);
-
     setPageState("mbti");
   }, []);
 
   return (
     <div>
       <Head>
-        <title>{mbti[type]} | 일루쉐어</title>
+        <title>{convertedName[type]} | 일루쉐어</title>
         <link
           rel="stylesheet"
           type="text/css"
@@ -79,13 +90,13 @@ const Mbti = ({ questions }) => {
       </Head>
       <section css={mainContainer}>
         <div css={containerMixin()}>
-          <Stepper step={step} end={mbtiQuestions[type]?.length} />
+          <Stepper step={step + 1} end={mbtiQuestions[type]?.length} />
           <div css={sliderContainer}>
             <Slider ref={sliderRef} {...sliderSettings} slickNext>
               <Question
-                key={questions[step - 1]?.question}
-                question={questions[step - 1]?.question}
-                answers={questions[step - 1]?.answers}
+                key={questions[step]?.question}
+                question={questions[step]?.question}
+                answers={questions[step]?.answers}
                 handleNextStep={handleNextStep}
               />
             </Slider>
