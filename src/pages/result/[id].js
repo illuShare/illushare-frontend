@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import pageState from "states/page";
 import ButtonGroup from "components/common/ButtonGroup";
 import SnsButton from "components/common/SnsButton";
@@ -29,10 +30,14 @@ const content = css`
   border-radius: 1rem;
   background-color: ${Colors.white};
 
-  & > h1,
-  & > h2 {
-    margin-top: 0;
+  & > h1 {
+    margin: 0;
+    font-size: 1.4rem;
     letter-spacing: 0.1rem;
+  }
+
+  & > p {
+    margin-top: 0;
   }
 
   & .sns-container {
@@ -50,7 +55,14 @@ const content = css`
 `;
 
 const figureStyle = css`
-  margin-bottom: 2rem;
+  margin-bottom: 0;
+`;
+
+const mbtiTypeStyle = css`
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: ${Colors["gray-900"]};
+  color: ${Colors.white};
 `;
 
 const descriptionContainerStyle = css`
@@ -70,7 +82,7 @@ const descriptionContainerStyle = css`
 `;
 
 const summary = css`
-  margin: 0 2rem 2rem 2rem;
+  margin: 0 2rem 1rem 2rem;
   text-align: center;
 `;
 
@@ -89,29 +101,43 @@ const linkContainer = css`
   color: rgb(79, 79, 79);
 
   & > a {
-    padding: 1rem 2.5rem 1rem 2.5rem;
+    padding: 1rem 2rem 1rem 2rem;
     font-weight: 800;
     background-color: inherit;
-    border: 0.15rem solid black;
+    border: 0.2rem solid black;
     border-radius: 1rem;
   }
 `;
 
 const Result = () => {
-  const result = useRecoilValue(resultState);
+  const router = useRouter();
+  const [result, setResult] = useRecoilState(resultState);
   const setPageState = useSetRecoilState(pageState);
+
+  const { id } = router.query;
 
   useEffect(() => {
     setPageState("result");
   }, []);
+
+  useEffect(() => {
+    setResult(id);
+
+    return () => {
+      setResult("");
+    };
+  }, [id]);
+
+  if (!result) return null;
 
   return (
     <div>
       <section>
         <div css={contentContainer}>
           <div css={content}>
-            <h1>{result}</h1>
-            <h2>{mbti[result].title}</h2>
+            <h1 css={mbtiTypeStyle}>
+              {result}: {mbti[result].name}
+            </h1>
             <figure css={figureStyle}>
               <Image
                 layout="intrinsic"
@@ -120,22 +146,9 @@ const Result = () => {
                 src={mbti[result].img}
               />
             </figure>
-            <p css={summary}>
-              &quot;평범한 것을 싫어하고 독특한 관점을 지닌 고민 상담가형
-              친구&quot;
-            </p>
+            <p css={summary}>{mbti[result].summary}</p>
             <div css={descriptionContainerStyle}>
-              <p css={descriptionStyle}>
-                뻔하고, 평범한 것을 죽기보다 싫어하는 당신! 수줍음이 많긴 하지만
-                독특한 관점과 독창성이 뛰어나 대다수의 친구들에게 관심과
-                부러움의 대상이 되기도 하는 사람입니다. 창의력이 뛰어난 타입으로
-                함께 있는 주변 친구들에게 많은 영감을 주고, 고민이 많거나 방향을
-                잃은 친구에게 항상 좋은 길잡이가 되기도 합니다. 단, 트집을 잡고
-                늘어지는 성향 때문에 친구들과 대화할 때 분위기를 흩트려놓는
-                경우가 있을 수 있으니 가끔은 모른 척 넘어가 주는 연습도 해두면
-                좋습니다. 통찰력이 뛰어난 당신은 친구들에게 최고의 고민 상담가
-                입니다.
-              </p>
+              <p css={descriptionStyle}>{mbti[result].description}</p>
             </div>
             <div css={subTypeContainer}>
               <h4>나랑 잘 맞는 유형은?</h4>
