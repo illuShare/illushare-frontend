@@ -62,7 +62,7 @@ const Mbti = ({ questions }) => {
       const mbtiResult = getMbtiResult(filterTypes(userAnswer)).toUpperCase();
       setResultState(mbtiResult);
       router.push({
-        pathname: `/result/${mbtiResult}`,
+        pathname: `/result/dog/${mbtiResult}`,
       });
     }
   };
